@@ -1,15 +1,12 @@
 {
-  "name": "cristifalcas-docker",
-  "version": "5.2.0",
-  "author": "Cristian Falcas",
+  "name": "garethr-docker",
+  "version": "5.1.0",
+  "author": "Gareth Rushgrove",
   "summary": "Module for installing and managing docker",
   "license": "Apache-2.0",
-  "source": "https://github.com/cristifalcas/puppet-docker.git",
-  "project_page": "https://github.com/cristifalcas/puppet-docker",
-  "issues_url": "https://github.com/cristifalcas/puppet-docker/issues",
-  "tags": [
-    "DOCKER"
-  ],
+  "source": "https://github.com/garethr/garethr-docker.git",
+  "project_page": "https://github.com/garethr/garethr-docker",
+  "issues_url": "https://github.com/garethr/garethr-docker/issues",
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
@@ -20,20 +17,26 @@
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "7"
+        "7",
+        "6.6"
       ]
     },
     {
-      "operatingsystem": "OracleLinux",
+      "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "7"
+        "12.04",
+        "14.04"
       ]
     },
     {
-      "operatingsystem": "Scientific",
+      "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "7"
+        "7.8",
+        "8.0"
       ]
+    },
+    {
+      "operatingsystem": "Archlinux"
     },
     {
       "operatingsystem": "Fedora",
@@ -53,6 +56,8 @@
     }
   ],
   "dependencies": [
-    {"name":"puppetlabs/stdlib","version_requirement":">= 4.1.0"}
+    {"name":"puppetlabs/stdlib","version_requirement":">= 4.1.0"},
+    {"name":"puppetlabs/apt","version_requirement":">= 1.8.0 <= 3.0.0"},
+    {"name":"stahnma/epel","version_requirement":">= 0.0.6"}
   ]
 }
