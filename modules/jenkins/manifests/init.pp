@@ -1,26 +1,30 @@
- class jenkins {
+class jenkins {
+    include apt
 
-  exec { 'install_jenkins_package_keys':class jenkins {
+    apt::key {
+      'D50582E6':
+        source => 'http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key',
+    }
 
-  exec { 'install_jenkins_package_keys':
-    command => '/usr/bin/wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | /usr/bin/apt-key add - ',
-  }
+    apt::sources_list {
+      'jenkins':
+        ensure  => present,
+        content => 'deb http://pkg.jenkins-ci.org/debian-stable binary/',
+        # The above gives you the LTS release. Use the below repo to get the very latest
+        # content => 'deb http://pkg.jenkins-ci.org/debian binary/',
+        require => Apt::Key['D50582E6'],
+    }
 
-  file { "/etc/apt/sources.list.d/jenkins.list":
-      mode => 644,
-     owner => root,
-     group => root,
-    source => "puppet:///modules/jenkins/etc/apt/sources.list.d/jenkins.list",
-  }
+    package {
+      'jenkins':
+        ensure  => installed,
+        require => Apt::Sources_list['jenkins'],
+    }
 
-  package { 'jenkins':
-      ensure => latest,
-    require  => [ Exec['install_jenkins_package_keys'],
-                  File['/etc/apt/sources.list.d/jenkins.list'], ],
-  }
-
-  service { 'jenkins':
-    ensure => running,
-  }
-
+    service {
+      'jenkins':
+        ensure  => running,
+        enable  => true,
+        require => Package['jenkins'],
+    }
 }
